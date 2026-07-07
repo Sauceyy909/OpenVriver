@@ -202,6 +202,18 @@ export default function App() {
         {/* Global Environment Config */}
         <div className="flex flex-wrap items-center gap-4">
           
+          {/* GitHub Repository Link */}
+          <a
+            href="https://github.com/Sauceyy909/OpenVriver"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white transition-all shadow-md group"
+          >
+            <Github className="w-3.5 h-3.5 text-amber-500 group-hover:scale-110 transition-transform" />
+            <span>Sauceyy909/OpenVriver</span>
+            <ExternalLink className="w-3 h-3 opacity-60" />
+          </a>
+
           {/* Target Linux Distro Switcher */}
           <div className="flex bg-neutral-900 rounded-lg p-1 border border-neutral-800">
             <button
@@ -304,14 +316,15 @@ export default function App() {
 
             {/* Quick terminal launch command */}
             <div className="font-mono text-xs bg-neutral-950 p-3.5 rounded-lg border border-neutral-850">
-              <span className="text-neutral-500"># Run direct autopilot script:</span>
+              <span className="text-neutral-500"># Clone & run setup from repo:</span>
               <div className="flex items-center justify-between bg-neutral-900/50 p-2 rounded mt-1.5 border border-neutral-800">
                 <code className="text-amber-300 text-[11px] overflow-x-auto whitespace-nowrap">
-                  curl -sSL https://openvriver.org/setup.sh | bash
+                  git clone https://github.com/Sauceyy909/OpenVriver.git && cd OpenVriver && ./openvriver-setup.sh
                 </code>
                 <button 
-                  onClick={() => handleCopyCode("cmd", "curl -sSL https://openvriver.org/setup.sh | bash")}
+                  onClick={() => handleCopyCode("cmd", "git clone https://github.com/Sauceyy909/OpenVriver.git && cd OpenVriver && ./openvriver-setup.sh")}
                   className="text-neutral-400 hover:text-neutral-200 ml-2"
+                  title="Copy terminal command"
                 >
                   {copiedFile === "cmd" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
@@ -967,7 +980,10 @@ export default function App() {
             OpenVriver Project is free, open-source software licensed under GPLv3. Created with <Heart className="w-3 h-3 text-amber-500 fill-amber-500" /> for the Linux VR Community.
           </span>
           <div className="flex gap-4">
-            <a href="#repo" onClick={() => setActiveTab("installation")} className="hover:text-neutral-300 transition-colors">GitHub Repository</a>
+            <a href="https://github.com/Sauceyy909/OpenVriver" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition-colors flex items-center gap-1">
+              <span>GitHub Repository</span>
+              <ExternalLink className="w-3 h-3 opacity-60" />
+            </a>
             <span>•</span>
             <a href="#wiki" onClick={() => setActiveTab("driver")} className="hover:text-neutral-350 transition-colors">SteamVR Driver Docs</a>
           </div>
