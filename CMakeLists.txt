@@ -15,7 +15,6 @@ include_directories(${FREENECT_INCLUDE_DIRS} ${BLUEZ_INCLUDE_DIRS} src/driver sr
 # 1. Build the SteamVR Driver Shared Library (.so)
 add_library(driver_openvriver SHARED 
     src/driver/driver_openvriver.cpp
-    src/driver/virtual_hmd_driver.cpp
 )
 target_link_libraries(driver_openvriver PRIVATE pthread)
 set_target_properties(driver_openvriver PROPERTIES PREFIX "")

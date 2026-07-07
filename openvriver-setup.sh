@@ -83,6 +83,8 @@ except Exception: data = {}
 if 'steamvr' in data:
     data['steamvr']['requireHmd'] = True
     data['steamvr']['activateMultipleDrivers'] = False
+    if 'forcedDriver' in data['steamvr']:
+        del data['steamvr']['forcedDriver']
 with open(path, 'w') as f: json.dump(data, f, indent=4)
 "
             echo "${GREEN}Successfully restored SteamVR to original state!${RESET}"
@@ -147,6 +149,7 @@ except Exception: data = {}
 if 'steamvr' not in data: data['steamvr'] = {}
 data['steamvr']['requireHmd'] = False
 data['steamvr']['activateMultipleDrivers'] = True
+data['steamvr']['forcedDriver'] = 'openvriver'
 with open(path, 'w') as f: json.dump(data, f, indent=4)
 "
             fi
@@ -310,6 +313,7 @@ except Exception: data = {}
 if 'steamvr' not in data: data['steamvr'] = {}
 data['steamvr']['requireHmd'] = False
 data['steamvr']['activateMultipleDrivers'] = True
+data['steamvr']['forcedDriver'] = 'openvriver'
 with open(path, 'w') as f: json.dump(data, f, indent=4)
 "
         echo "${GREEN}Successfully configured SteamVR to run without a physical headset!${RESET}"
