@@ -1017,6 +1017,15 @@ echo "\${BOLD}\${GREEN}=========================================================
   res.send(setupScriptContent);
 });
 
+// Serve raw source files for easy downloading/curling on physical machines
+app.get("/api/driver/raw/driver_openvriver.cpp", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "src/driver/driver_openvriver.cpp"));
+});
+
+app.get("/api/driver/raw/openvriver_daemon.cpp", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "src/daemon/openvriver_daemon.cpp"));
+});
+
 // Serve Vite dev server or production built assets
 if (process.env.NODE_ENV !== "production") {
   createViteServer({

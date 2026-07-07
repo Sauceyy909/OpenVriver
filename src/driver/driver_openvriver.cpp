@@ -90,7 +90,7 @@ public:
     bool IsDisplayOnDesktop() override { return false; }
     bool IsDisplayRealDisplay() override { return false; }
 
-    void GetRecommendedResolution(uint32_t *pnWidth, uint32_t *pnHeight) override {
+    void GetRecommendedRenderTargetSize(uint32_t *pnWidth, uint32_t *pnHeight) override {
         *pnWidth = 1920;
         *pnHeight = 1080;
     }
@@ -115,6 +115,11 @@ public:
         coordinates.rfBlue[0] = fU;
         coordinates.rfBlue[1] = fV;
         return coordinates;
+    }
+    bool ComputeInverseDistortion(vr::HmdVector2_t *pResult, vr::EVREye eEye, uint32_t unChannel, float fU, float fV) override {
+        pResult->v[0] = fU;
+        pResult->v[1] = fV;
+        return true;
     }
 
 private:
