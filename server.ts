@@ -380,6 +380,7 @@ if [ -d "\$STEAMVR_DIR" ]; then
     echo "SteamVR directory detected at: \$STEAMVR_DIR"
     # Copy compiled .so driver to local SteamVR driver manifest
     mkdir -p "\$STEAMVR_DIR/drivers/openvriver/bin/linux64"
+    mkdir -p "\$STEAMVR_DIR/drivers/openvriver/resources/settings"
     cp build/driver_openvriver.so "\$STEAMVR_DIR/drivers/openvriver/bin/linux64/"
     
     # Write virtual HMD configuration flag to true in the driver settings file
