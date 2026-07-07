@@ -1,0 +1,6 @@
+{
+  "name": "OpenVriver",
+  "description": "An exact Driver4VR alternative for Linux users (Ubuntu, Arch). Provides SteamVR tracker and controller emulation for Xbox Kinect (libfreenect Full Body Tracking), Wii Remote + Nunchucks, and Nintendo Switch Joy-Cons.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
