@@ -359,6 +359,14 @@ fi
 
 # Step 2: Build Binaries & Libraries
 echo -e "\n\${BOLD}\${YELLOW}[Step 2/5] Building OpenVriver Driver & Daemon with CMake...\${RESET}"
+
+# Ensure openvr_driver.h is present for driver compilation
+mkdir -p src/driver
+if [ ! -f src/driver/openvr_driver.h ]; then
+    echo "Downloading openvr_driver.h from Valve's official repository..."
+    curl -sSL https://raw.githubusercontent.com/ValveSoftware/openvr/master/headers/openvr_driver.h -o src/driver/openvr_driver.h
+fi
+
 mkdir -p build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
