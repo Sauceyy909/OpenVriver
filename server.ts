@@ -325,7 +325,30 @@ echo "\${BOLD}\${GREEN}=========================================================
 echo "\${BOLD}\${YELLOW}[Step 1/5] Detecting package manager & installing requirements...\${RESET}"
 if [ -f /etc/arch-release ]; then
     echo "Distro detected: Arch Linux Family."
-    sudo pacman -S --needed --noconfirm cmake make gcc pkg-config libfreenect bluez bluez-utils git glu
+    # Install official repository dependencies
+    sudo pacman -S --needed --noconfirm cmake make gcc pkg-config bluez bluez-utils git glu
+    
+    # Try to find an AUR helper to install libfreenect (which is on the AUR)
+    AUR_HELPER=""
+    if command -v paru &>/dev/null; then
+        AUR_HELPER="paru"
+    elif command -v yay &>/dev/null; then
+        AUR_HELPER="yay"
+    fi
+
+    if [ -n "\$AUR_HELPER" ]; then
+        echo "Found AUR helper: \$AUR_HELPER. Installing libfreenect from AUR..."
+        \$AUR_HELPER -S --needed --noconfirm libfreenect
+    else
+        echo "No AUR helper (paru/yay) detected. Attempting manual clone & install of libfreenect from AUR..."
+        TEMP_DIR=\$(mktemp -d)
+        pushd "\$TEMP_DIR" >/dev/null
+        git clone https://aur.archlinux.org/libfreenect.git
+        cd libfreenect
+        makepkg -si --noconfirm
+        popd >/dev/null
+        rm -rf "\$TEMP_DIR"
+    fi
 elif [ -f /etc/debian_version ] || grep -q "ubuntu" /etc/os-release; then
     echo "Distro detected: Ubuntu/Debian Family."
     sudo apt update -y
