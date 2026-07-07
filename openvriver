@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# ==============================================================================
+#                 OpenVriver CLI Controller & Autopilot
+# ==============================================================================
+# This script is a wrapper for openvriver-setup.sh, offering a fast global CLI.
+
+set -euo pipefail
+
+# Find directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SETUP_SCRIPT="$SCRIPT_DIR/openvriver-setup.sh"
+
+if [ ! -f "$SETUP_SCRIPT" ]; then
+    echo "Error: openvriver-setup.sh not found in $SCRIPT_DIR!"
+    exit 1
+fi
+
+# Execute openvriver-setup.sh with all supplied arguments
+exec "$SETUP_SCRIPT" "$@"

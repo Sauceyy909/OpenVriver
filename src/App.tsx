@@ -477,18 +477,67 @@ export default function App() {
                 </div>
               </div>
 
+              {/* Command-line Autopilot Controls Guide */}
+              <div className="bg-neutral-950 border border-neutral-850 rounded-xl p-5 flex flex-col gap-3">
+                <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
+                  <Terminal className="w-4 h-4 text-amber-500" />
+                  Global Command-Line Controller
+                </h3>
+                <p className="text-xs text-neutral-400 leading-normal">
+                  The setup script automatically registers a global command <code className="font-mono bg-neutral-900 px-1 py-0.5 rounded text-amber-400">openvriver</code> in your system path. You can now enable and disable the driver suite dynamically from any directory on your Linux machine!
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-1 text-xs">
+                  <div className="bg-neutral-905 border border-neutral-850 p-3.5 rounded-lg flex flex-col gap-2">
+                    <span className="font-semibold text-emerald-400 flex items-center gap-1.5 font-mono text-[11px] uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Enable Driver & Daemon
+                    </span>
+                    <div className="bg-neutral-950 p-2 rounded border border-neutral-800 font-mono text-[10px] text-neutral-300">
+                      openvriver --enable
+                    </div>
+                    <p className="text-[10px] text-neutral-500 leading-normal">
+                      Restores driver manifests, udev rules, and activates SteamVR headset-free mode compatibility.
+                    </p>
+                  </div>
+
+                  <div className="bg-neutral-905 border border-neutral-850 p-3.5 rounded-lg flex flex-col gap-2">
+                    <span className="font-semibold text-rose-400 flex items-center gap-1.5 font-mono text-[11px] uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                      Disable / Revert System
+                    </span>
+                    <div className="bg-neutral-950 p-2 rounded border border-neutral-800 font-mono text-[10px] text-neutral-300">
+                      openvriver --disable
+                    </div>
+                    <p className="text-[10px] text-neutral-500 leading-normal">
+                      Gracefully stops the Kinect daemon processes, temporarily unregisters drivers, and restores SteamVR settings.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Source code viewer for the Installer */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between border-b border-neutral-850 pb-2">
-                  <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider font-mono">
-                    openvriver-setup.sh (Official Code)
-                  </span>
-                  {sourceFiles["openvriver-setup.sh"] && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider font-mono">
+                      File Viewer:
+                    </span>
+                    <select
+                      value={selectedSourceFileName}
+                      onChange={(e) => setSelectedSourceFileName(e.target.value)}
+                      className="bg-neutral-950 border border-neutral-800 text-xs text-amber-400 rounded px-2.5 py-1 font-mono outline-none cursor-pointer focus:border-amber-500"
+                    >
+                      <option value="openvriver-setup.sh">openvriver-setup.sh</option>
+                      <option value="openvriver">openvriver (CLI Wrapper)</option>
+                    </select>
+                  </div>
+                  {sourceFiles[selectedSourceFileName] && (
                     <button
-                      onClick={() => handleCopyCode("openvriver-setup.sh", sourceFiles["openvriver-setup.sh"])}
+                      onClick={() => handleCopyCode(selectedSourceFileName, sourceFiles[selectedSourceFileName])}
                       className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-neutral-200 transition-colors"
                     >
-                      {copiedFile === "openvriver-setup.sh" ? (
+                      {copiedFile === selectedSourceFileName ? (
                         <>
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
                           <span className="text-emerald-400">Copied!</span>
@@ -496,7 +545,7 @@ export default function App() {
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span>Copy Setup Script</span>
+                          <span>Copy File</span>
                         </>
                       )}
                     </button>
@@ -504,7 +553,7 @@ export default function App() {
                 </div>
 
                 <div className="bg-neutral-950 p-4 rounded-lg border border-neutral-850 font-mono text-xs overflow-x-auto max-h-96 text-neutral-350 leading-relaxed">
-                  <pre>{sourceFiles["openvriver-setup.sh"] || "# Loading installer code..."}</pre>
+                  <pre>{sourceFiles[selectedSourceFileName] || "# Loading source file..."}</pre>
                 </div>
               </div>
 
