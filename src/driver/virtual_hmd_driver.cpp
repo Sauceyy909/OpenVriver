@@ -16,7 +16,7 @@ public:
         m_objectId = unObjectId;
         
         vr::CVRPropertyHelpers *props = vr::VRProperties();
-        vr::PropertyContainerHandle_t container = props->GetPropertyContainer(m_objectId);
+        vr::PropertyContainerHandle_t container = props->TrackedDeviceToPropertyContainer(m_objectId);
 
         // Define device properties to trick SteamVR into treating us as a physical display HMD
         props->SetStringProperty(container, vr::Prop_ModelNumber_String, "OpenVriver Virtual HMD");
@@ -26,8 +26,6 @@ public:
         // Set display metrics (90Hz, 1080p per eye virtual render targets)
         props->SetFloatProperty(container, vr::Prop_UserIpdMeters_Float, 0.063f);
         props->SetFloatProperty(container, vr::Prop_DisplayFrequency_Float, 90.0f);
-        props->SetInt32Property(container, vr::Prop_WindowWidth_Int32, 1920);
-        props->SetInt32Property(container, vr::Prop_WindowHeight_Int32, 1080);
 
         return vr::VRInitError_None;
     }

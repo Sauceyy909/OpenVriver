@@ -13,7 +13,7 @@ public:
 
     vr::EVRInitError Activate(uint32_t unObjectId) override {
         m_objectId = unObjectId;
-        vr::VRProperties()->SetStringProperty(vr::VRProperties()->GetPropertyContainer(m_objectId), 
+        vr::VRProperties()->SetStringProperty(vr::VRProperties()->TrackedDeviceToPropertyContainer(m_objectId), 
             vr::Prop_SerialNumber_String, m_serial.c_str());
         return vr::VRInitError_None;
     }
